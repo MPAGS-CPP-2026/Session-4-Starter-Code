@@ -5,11 +5,15 @@
 
 int main(int argc, char* argv[])
 {
-    const std::vector<std::string> cmdLineArgs { argv, argv+argc };
-
     // Initialise variables
     char inputChar{'x'};
     std::string inputText;
+    const std::vector<std::string> cmdLineArgs { argv, argv+argc };
+    
+    // Print out command line args
+    for (std::string it: cmdLineArgs) {
+        std::cout << it << std::endl;
+    }
 
     // loop over each character from user input
     while (std::cin >> inputChar) {
