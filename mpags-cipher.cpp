@@ -1,9 +1,74 @@
 #include <cctype>
 #include <iostream>
 #include <string>
+#include <vector>
 
-int main()
+int main(int argc, char* argv[])
 {
+    // Exercise 4.1
+    const std::vector<std::string> cmdLineArgs{argv, argv + argc};
+    for (const std::string& argument : cmdLineArgs) {
+        std::cout << argument << std::endl;
+    }
+
+    // Exercise 4.2
+    for (const std::string& argument : cmdLineArgs) {
+        if (argument == "-h" || argument == "--help") {
+            std::cout << "Usage: ./mpags-cipher [options]\n";
+            std::cout << "Options:\n";
+            std::cout << "  -h, --help      Display help information\n";
+        }
+    }
+
+    // Exercise 4.3
+    std::string inputFile;
+    std::string outputFile;
+
+    for (int i = 1; i < argc; ++i) {
+        const std::string& argument = cmdLineArgs[i];
+
+        if (argument == "-h" || argument == "--help") {
+            std::cout << "Help message\n";
+            return 0;
+        }
+
+        else if (argument == "--version") {
+            std::cout << "mpags-cipher version 1.0\n";
+            return 0;
+        }
+
+        else if (argument == "-i") {
+            if (i + 1 >= argc) {
+                std::cerr << "Error: missing input filename\n";
+                return 1;
+            }
+
+            inputFile = cmdLineArgs[++i];
+        }
+
+        else if (argument == "-o") {
+            if (i + 1 >= argc) {
+                std::cerr << "Error: missing output filename\n";
+                return 1;
+            }
+
+            outputFile = cmdLineArgs[++i];
+        }
+
+        else {
+            std::cerr << "Error: unknown argument " << argument << '\n';
+            return 1;
+        }
+    }
+
+    if (!inputFile.empty()) {
+        std::cout << "Input filename: " << inputFile << '\n';
+    }
+
+    if (!outputFile.empty()) {
+        std::cout << "Output filename: " << outputFile << '\n';
+    }
+
     // Initialise variables
     char inputChar{'x'};
     std::string inputText;
