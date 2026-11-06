@@ -12,6 +12,10 @@ int main(int argc, char* argv[])
     
     // Print out command line args
     for (std::string it: cmdLineArgs) {
+        if (it == "-h" || it == "--help") {
+            std::cout << "options: something something help page this is just to get it working" << std::endl;
+            return 0;
+        }
         std::cout << it << std::endl;
     }
 
